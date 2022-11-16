@@ -1,0 +1,7 @@
+FROM amazoncorretto:17.0.5-alpine
+EXPOSE 8070
+RUN addgroup -S spring-group && adduser -S spring -G spring-group
+USER spring:spring-group
+ARG JAR_FILE=BStore.jar
+COPY ${JAR_FILE} BStore.jar
+ENTRYPOINT ["java","-jar","BStore.jar"]

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BStore</title>
+</head>
+<body>
+<form action="/admin/add_new_book" method="post" enctype="multipart/form-data">
+    <label for="name">Book:</label>
+    <input type="text" id="name" name="name">
+    <br><br>
+    <label for="authorName">Author:</label>
+    <input type="text" id="authorName" name="authorName">
+    <br><br>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title">
+    <br><br>
+<!--app/WWW-->
+    <label for="image">Image: </label>
+    <input type="file" id="image" name="image" multiple accept=".jpg">
+    <br><br>
+
+    <label for="categories">Category:</label>
+        <select id="categories" required="required" name="category">
+            <option value="Fantasy">Fantasy</option>
+            <option value="Comic">Comic</option>
+            <option value="Detective">Detective</option>
+            <option value="Romance">Romance</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Biography">Biography</option>
+        </select>
+    <br><br>
+    <label for="price">Price:</label>
+    <input type="number" step="0.01" id="price" name="price">
+    <br><br>
+    <label for="count">Count:</label>
+    <input type="number" id="count" name="count">
+    <br><br>
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

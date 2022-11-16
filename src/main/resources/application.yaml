@@ -1,0 +1,35 @@
+server:
+  port: 8070
+
+spring:
+  profiles.active: dev
+  jpa:
+    hibernate:
+      ddl-auto: "none"
+      dialect: "PostgreSQLDialect"
+      default_schema: "BStore"
+    show-sql: true
+
+  thymeleaf:
+    prefix: classpath:/static/templates/
+
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/BStore"
+    username: "admin"
+    password: "admin"
+    driver-class-name: org.postgresql.Driver
+
+  flyway:
+    url: "jdbc:postgresql://localhost:5432/BStore?ssl=false"
+    user: "admin"
+    password: "admin"
+    locations: "classpath:/db/migration"
+    baseline-on-migrate: true
+
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+
+  sql:
+    init:
+      mode: always
