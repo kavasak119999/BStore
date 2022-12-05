@@ -20,11 +20,12 @@ public class EntityToDto {
     public static Book bookEntityToDto(BookEntity bookEntity) {
         String base64Image = "";
         try {
-            System.out.println(bookEntity.getImage().getFileName());
-            BufferedImage bf = ImageIO.read(new File("container/docker/images/" + bookEntity.getImage().getFileName()));
+            String fileName = bookEntity.getImage().getFileName();
+            System.out.println(new File(".").getAbsolutePath());
+            BufferedImage bf = ImageIO.read(new File("container/docker/images/" + fileName));
 
             ByteArrayOutputStream outStreamObj = new ByteArrayOutputStream();
-            ImageIO.write(bf, "jpg", outStreamObj);
+            ImageIO.write(bf, fileName.substring(fileName.lastIndexOf('.') + 1), outStreamObj);
 
             base64Image = Base64.getEncoder().encodeToString(outStreamObj.toByteArray());
 
@@ -38,7 +39,7 @@ public class EntityToDto {
                 .id(String.valueOf(bookEntity.getId()))
                 .name(bookEntity.getName())
                 .base64Image(base64Image)
-                .author(EntityToDto.authorEntityToDtoCustom(bookEntity.getAuthor()))
+                .author(bookEntity.getAuthor().getName())
                 .category(bookEntity.getCategory())
                 .title(bookEntity.getTitle())
                 .price(bookEntity.getPrice())
@@ -54,13 +55,6 @@ public class EntityToDto {
                 .bookList(authorEntity.getBookEntityList().stream()
                         .map(EntityToDto::bookEntityToDto)
                         .collect(Collectors.toList()))
-                .build();
-    }
-
-    private static Author authorEntityToDtoCustom(AuthorEntity authorEntity) {
-        return Author.builder()
-                .id(String.valueOf(authorEntity.getId()))
-                .name(authorEntity.getName())
                 .build();
     }
 }

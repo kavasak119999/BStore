@@ -1,22 +1,32 @@
 version: "3.9"
 services:
-  postgress:
-    image: postgres:14.0
+  postgres:
+    networks:
+      - internal
+    image: postgres:14.5
     environment:
       POSTGRES_DB: "BStore"
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "admin"
     ports:
       - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
   application:
+    networks:
+      - internal
     build:
       context: ./docker
       dockerfile: app
     ports:
       - "8070:8070"
-  backend:
-    image: alpine:3.8
     volumes:
       - type: bind
         source: ./docker/images
         target: /images
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  db_data: {}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Max Filipchuk"/>
+    <title>BStore</title>
+    <link rel="icon" href="assets/BStore.ico">
+    <link rel="stylesheet" href="css/bootstrap-grid.css"/>
+    <link rel="stylesheet" href="css/jquery.modal.css"/>
+    <link rel="stylesheet" href="css/bootstrap-glyphicons.css">
+    <link href="css/styles.css" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/">BStore</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/catalog(category=detective)}">Detective</a></li>
+                        <li><a class="dropdown-item" th:href="@{/catalog(category=comic)}">Comic</a></li>
+                        <li><a class="dropdown-item" th:href="@{/catalog(category=fantasy)}">Fantasy</a></li>
+                        <li><a class="dropdown-item" th:href="@{/catalog(category=romance)}">Romance</a></li>
+                        <li><a class="dropdown-item" th:href="@{/catalog(category=adventure)}">Adventure</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/contact}">Contact</a></li>
+            </ul>
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search" action="/search">
+                    <input type="hidden" name="pages" value="1">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="param">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="btn btn-primary" type="button" th:href="@{/admin/add-book}">Add Item</a>
+                <a class="btn btn-primary" type="button" th:href="@{/orders}">Orders</a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a class="btn btn-primary" type="button" th:href="@{/login}">Login</a>
+                <a class="btn btn-primary" type="button" th:href="@{/registration}">Sign up</a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <a class="btn btn-primary" type="button" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Book Store</h1>
+            <p class="lead fw-normal text-white-50 mb-0">The writer is just starting the book. The reader finishes
+                it.</p>
+        </div>
+    </div>
+</header>
+
+<section class="py-5">
+    <p class="t lead fw-normal text-black-50 mb-0" th:text="${searchValue != null} ? 'Search result: ' + ${searchValue} : ''"></p>
+    <p class="t lead fw-normal text-black-50 mb-0" th:text="${category != null} ? 'Category: ' + ${category} : ''"></p>
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <tr th:each="book: ${data}">
+                <div class="col mb-5">
+                    <div class="card h-100 w-75">
+                        <img class="card-img-top" th:src="@{'data:image/jpeg;base64,'+${book.base64Image}}" alt="..."/>
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <a class="fw-bolder" th:href="@{/book(id=${book.id})}" th:text="${book.name}"></a>
+                                <br><br>
+                                $<a th:text="${book.price}"></a>
+                            </div>
+                        </div>
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <button type="button" data-row="${book}"
+                                        class="open-AddBookDialog btn btn-outline-dark mt-auto eBtn"
+                                        data-bs-toggle="modal"
+                                        th:attr="data-bs-target='#modal-warning' + ${book.id}">
+                                    Buy
+                                </button>
+                                <div
+                                        class="modal fade showModel in"
+                                        th:id="modal-warning + ${book.id}"
+                                        tabindex="-1"
+                                        role="dialog"
+                                        aria-labelledby="exampleModalCenterTitle"
+                                        aria-hidden="true"
+                                >
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Order
+                                                    Confirmation</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div sec:authorize="isAnonymous()">
+                                                    <p>The order requires authorization, log in and try again</p>
+                                                </div>
+                                                <div sec:authorize="isAuthenticated()">
+
+                                                    <img class="imgh"
+                                                         th:src="@{'data:image/jpeg;base64,'+${book.base64Image}}"
+                                                         alt="..."/>
+                                                    <div class="card-body p-4">
+                                                        <div class="text-start s">
+                                                            <p class="fw-bolder" th:text="${book.name}"></p>
+                                                            <br>
+                                                        </div>
+                                                        <div class="text-start">
+                                                            Overview:
+                                                            <p th:text="${book.title}"></p>
+                                                        </div>
+                                                        <br><br>
+                                                        <div class="text-start">
+                                                            Author:
+                                                            <p th:text="${book.author}"></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div sec:authorize="isAuthenticated()">
+                                                    <h1 th:text="${book.price} + '$'"></h1>
+                                                </div>
+                                                <button
+                                                        type="button"
+                                                        class="close btn btn-secondary"
+                                                        data-dismiss="modal"
+                                                        aria-label="Close"
+                                                >
+                                                    Cancel
+                                                </button>
+
+                                                <div sec:authorize="isAnonymous()">
+                                                    <a class="btn btn-primary" type="button"
+                                                       th:href="@{/login}">Login</a>
+                                                </div>
+
+                                                <div sec:authorize="isAuthenticated()">
+                                                    <form action="/confirm-order" method="post">
+                                                        <input type="hidden" name="userId" th:value="${userName}">
+                                                        <input type="hidden" name="bookName" th:value="${book.name}">
+                                                        <input type="hidden" name="status" th:value="1">
+                                                        <input type="hidden" name="bookId" th:value="${book.id}">
+                                                        <input class="btn btn-primary" type="submit" value="Confirm" onclick="showMessage()"/>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+        </div>
+    </div>
+</section>
+
+<div class="pagin">
+    <ul class="nav nav-pills">
+        <li class="nav-item"
+            th:each="i : ${#numbers.sequence(0, totalPages-1)}">
+            <a th:if="${searchValue != null && totalPages gt 1}"
+               th:href="@{/search(pages=${i} + 1, param=${searchValue})}"
+               th:text="${i} + 1" class="nav-link"
+               th:classappend="${currentPage}-1==${i}?'active':''"></a>
+            <a th:if="${searchValue == null && totalPages gt 1}" th:href="@{/(pages=${i} + 1)}"
+               th:text="${i} + 1" class="nav-link"
+               th:classappend="${currentPage}-1==${i}?'active':''"></a>
+    </ul>
+</div>
+
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; BStore 2022</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+<script th:src="@{js/bootstrap.bundle.min.js}" src="../static/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{js/jquery.js}" src="../static/js/jquery.js"></script>
+<script th:src="@{js/jquery.modal.js}" src="../static/js/jquery.modal.js"></script>
+<script th:src="@{js/main.js}" type="text/javascript" src="../static/js/main.js"></script>
+</body>
+</html>

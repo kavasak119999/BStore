@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>BStore</title>
+    <link rel="stylesheet" href="css/jquery.modal.css"/>
+    <link href="css/styles.css" rel="stylesheet"/>
+    <link >
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/">BStore</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="btn btn-primary" type="button" th:href="@{/orders}">Orders</a>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <a class="btn btn-primary" type="button" th:href="@{/login}">Login</a>
+                <a class="btn btn-primary" type="button" th:href="@{/registration}">Sign up</a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <a class="btn btn-primary" type="button" th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th class="th-sm">Id
+
+        </th>
+        <th class="th-sm">User id
+
+        </th>
+
+        <th class="th-sm">Name
+
+        </th>
+
+        <th class="th-sm">Phone number
+
+        </th>
+
+        <th class="th-sm">Book name
+
+        </th>
+        <th class="th-sm">Created
+
+        </th>
+        <th class="th-sm">Status
+
+        </th>
+        <th class="th-sm">Book id
+
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${data}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.userName}"></td>
+        <td th:text="${order.firstNameCustomer} + ' ' + ${order.lastNameCustomer}"></td>
+        <td th:text="${order.phoneNumber}"></td>
+        <td th:text="${order.bookName}"></td>
+        <td th:text="${order.created}"></td>
+        <td th:text="${order.status}"></td>
+        <td th:text="${order.bookId}"></td>
+    </tr>
+    </tbody>
+</table>
+<script th:src="@{js/jquery.js}" src="../static/js/jquery.js"></script>
+<script th:src="@{js/jquery.modal.js}" src="../static/js/jquery.modal.js"></script>
+<script type="text/javascript" th:src="@{js/orders.js}" src="../static/js/orders.js"></script>
+</body>
+</html>

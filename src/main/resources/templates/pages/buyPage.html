@@ -1,0 +1,39 @@
+<!------ Include the above in your HEAD tag ---------->
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>BStore</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="/css/buy-styles.css" rel="stylesheet"/>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+
+        <div class="fadeIn first">
+            <img class="card-img-top" th:src="@{'data:image/jpeg;base64,'+${book.base64Image}}" alt="..."/>
+        </div>
+        <p class="lead fw-normal text-white-50 mb-0 fadeIn second" th:text="${book.name}"></p>
+        <p class="lead fw-normal text-white-50 mb-0 fadeIn third" th:text="${book.author}"></p>
+
+        <button type="button" class="btn-primary2 fadeIn fourth" value="Cancel"></button>
+        <button type="button" class="btn-primary fadeIn fifth" value="Buy"></button>
+
+    </div>
+</div>
+
+
+
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; BStore 2022</p></div>
+</footer>
+</body>
+</html>

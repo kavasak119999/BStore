@@ -41,19 +41,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void checkCredentials(String userId, String userPass) throws LoginException {
-        Optional<UserEntity> optionalUserEntity = userRepository
-                .findById(userId);
-        if (optionalUserEntity.isEmpty())
-            throw new LoginException(
-                    "Client with id: " + userId + " not found");
-        UserEntity userEntity = optionalUserEntity.get();
-
-        if (!BCrypt.checkpw(userPass, userEntity.getPassword()))
-            throw new LoginException("Secret is incorrect");
-    }
-
-    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserEntity> optionalUserEntity = userRepository
                 .findById(username);
@@ -61,9 +48,7 @@ public class UserServiceImpl implements UserService {
                 throw new UsernameNotFoundException(
                         "User with username: " + username + " not found");
         } else {
-            UserEntity entity = optionalUserEntity.get();
-            System.out.println("Logged in with username - " + entity.getId());
-            return entity;
+            return optionalUserEntity.get();
         }
     }
 }

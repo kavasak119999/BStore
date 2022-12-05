@@ -19,11 +19,12 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/**", "/", "/search", "/catalog", "/viewbook").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/buy/**").authenticated()
+                .antMatchers("/admin/**", "/orders").hasRole("ADMIN")
+                .anyRequest().permitAll()
                 .and().formLogin()
-                .loginPage("/auth/login")
-                .loginProcessingUrl("/auth/login-user");
+                .loginPage("/login")
+                .loginProcessingUrl("/login-user");
         return httpSecurity.build();
     }
 

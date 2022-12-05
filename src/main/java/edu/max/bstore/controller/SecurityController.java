@@ -5,10 +5,7 @@ import edu.max.bstore.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.security.auth.login.LoginException;
-
 @Controller
-@RequestMapping(value = "/auth")
 public class SecurityController {
     private final UserService userService;
 
@@ -18,35 +15,32 @@ public class SecurityController {
 
     @GetMapping(value = "/login")
     public String login() {
-        return "/pages/auth/lg";
-    }
-
-    @PostMapping(value = "/login-user")
-    public String login(@RequestParam(value = "username") String id,
-                        @RequestParam(value = "password") String pass) throws LoginException {
-        userService.checkCredentials(id,pass);
-        return "redirect://";
+        return "pages/login";
     }
 
     @GetMapping(value = "/registration")
     public String registration() {
-        return "/pages/auth/registration";
+        return "pages/registration";
     }
 
     @PostMapping(value = "/registration-user")
     public String registration(
             @RequestParam String username,
+            @RequestParam String firstName,
+            @RequestParam String lastName,
             @RequestParam String password,
-            @RequestParam String phone_number
+            @RequestParam String phoneNumber
     ) {
         User user = User.builder()
                 .username(username)
                 .password(password)
-                .phoneNumber(phone_number)
+                .firstName(firstName)
+                .lastName(lastName)
+                .phoneNumber(phoneNumber)
                 .build();
 
         userService.register(user);
 
-        return "redirect:/";
+        return "redirect:";
     }
 }

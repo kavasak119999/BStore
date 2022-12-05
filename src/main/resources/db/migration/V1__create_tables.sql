@@ -3,20 +3,20 @@ CREATE SEQUENCE IF NOT EXISTS hibernate_sequence START WITH 1 INCREMENT BY 1;
 CREATE TABLE IF NOT EXISTS authors
 (
     id   UUID NOT NULL,
-    name VARCHAR(255),
+    name VARCHAR(255) NOT NULL,
     CONSTRAINT pk_authors PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS books
 (
     id            UUID NOT NULL,
-    book_name     VARCHAR(255),
-    book_title    VARCHAR(600),
-    book_price    DOUBLE PRECISION,
-    book_category VARCHAR(255),
-    book_count    INTEGER,
-    author_id     UUID,
-    image_id      BIGINT,
+    book_name     VARCHAR(255) NOT NULL,
+    book_title    TEXT NOT NULL,
+    book_price    DOUBLE PRECISION NOT NULL,
+    book_category VARCHAR(255) NOT NULL,
+    book_count    INTEGER NOT NULL,
+    author_id     UUID NOT NULL,
+    image_id      BIGINT NOT NULL,
     CONSTRAINT pk_books PRIMARY KEY (id)
 );
 

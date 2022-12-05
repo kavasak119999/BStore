@@ -10,8 +10,10 @@ insert into roles (name) values ('ROLE_USER'), ('ROLE_ADMIN');
 CREATE TABLE IF NOT EXISTS users
 (
     id           VARCHAR(255) NOT NULL,
-    phone_number VARCHAR(255),
-    password     VARCHAR(255),
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(255) NOT NULL,
+    password     VARCHAR(255) NOT NULL,
     created      TIMESTAMP WITHOUT TIME ZONE,
     updated      TIMESTAMP WITHOUT TIME ZONE,
     status       VARCHAR(255),

@@ -20,6 +20,8 @@ public class DtoToEntity {
         return UserEntity.builder()
                 .id(user.getUsername())
                 .password(hash)
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
                 .phoneNumber(user.getPhoneNumber())
                 .status(Status.ACTIVE)
                 .roles(userRoles)
