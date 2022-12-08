@@ -2,10 +2,8 @@ package edu.max.bstore.tools;
 
 import edu.max.bstore.dto.Author;
 import edu.max.bstore.dto.Book;
-import edu.max.bstore.dto.User;
 import edu.max.bstore.entity.AuthorEntity;
 import edu.max.bstore.entity.BookEntity;
-import edu.max.bstore.entity.UserEntity;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -21,7 +19,6 @@ public class EntityToDto {
         String base64Image = "";
         try {
             String fileName = bookEntity.getImage().getFileName();
-            System.out.println(new File(".").getAbsolutePath());
             BufferedImage bf = ImageIO.read(new File("container/docker/images/" + fileName));
 
             ByteArrayOutputStream outStreamObj = new ByteArrayOutputStream();

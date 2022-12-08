@@ -11,5 +11,6 @@ import java.util.UUID;
 @Repository
 public interface AuthorRepository extends JpaRepository<AuthorEntity, UUID> {
     AuthorEntity findByName(String name);
+
     List<AuthorEntity> getAllByNameContains(String name);
 }

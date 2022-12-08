@@ -8,12 +8,10 @@ import edu.max.bstore.repository.RoleRepository;
 import edu.max.bstore.repository.UserRepository;
 import edu.max.bstore.tools.DtoToEntity;
 import lombok.extern.slf4j.Slf4j;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.LoginException;
 import java.util.Optional;
 
 

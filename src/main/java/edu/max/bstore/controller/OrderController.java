@@ -24,9 +24,9 @@ public class OrderController {
     }
 
     @GetMapping(value = "/orders")
-    public ModelAndView showOrders(ModelMap map){
+    public ModelAndView showOrders(ModelMap map) {
         List<Order> orders = orderService.getAllOrders();
-
+        orders.sort((o1, o2) -> (int) (o1.getId() - o2.getId()));
         map.addAttribute("data", orders);
         return new ModelAndView("pages/orders", map);
     }
@@ -35,7 +35,7 @@ public class OrderController {
     public String confirmOrder(@RequestParam(value = "userId") String userName,
                                @RequestParam(value = "bookName") String bookName,
                                @RequestParam(value = "status") String status,
-                               @RequestParam(value = "bookId") UUID bookId){
+                               @RequestParam(value = "bookId") UUID bookId) {
 
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
@@ -51,6 +51,12 @@ public class OrderController {
 
         orderService.createOrder(order);
 
+        return "redirect:";
+    }
+
+    @PostMapping(value = "/orders/complete")
+    public String switchStatusToOrder(@RequestParam String id){
+        orderService.switchStatusToOrder(id);
         return "redirect:";
     }
 }

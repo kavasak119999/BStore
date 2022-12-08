@@ -41,6 +41,6 @@ public class BookEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn
             (name = "image_id"
-            , referencedColumnName = "id")
+                    , referencedColumnName = "id")
     private ImageEntity image;
 }

@@ -20,13 +20,9 @@ services:
       dockerfile: app
     ports:
       - "8070:8070"
-    volumes:
-      - type: bind
-        source: ./docker/images
-        target: /images
 networks:
   internal:
     driver: bridge
 
 volumes:
-  db_data: {}
+  db_data: { }

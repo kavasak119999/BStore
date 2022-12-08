@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Getter
 @Setter

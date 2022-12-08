@@ -41,6 +41,6 @@ public class SecurityController {
 
         userService.register(user);
 
-        return "redirect:";
+        return "redirect:login";
     }
 }

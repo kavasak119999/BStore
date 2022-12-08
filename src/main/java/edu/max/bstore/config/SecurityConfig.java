@@ -20,11 +20,14 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/buy/**").authenticated()
-                .antMatchers("/admin/**", "/orders").hasRole("ADMIN")
+                .antMatchers("/admin/**", "/orders", "/orders/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and().formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/login-user");
+                .loginProcessingUrl("/login-user")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login");
         return httpSecurity.build();
     }
 

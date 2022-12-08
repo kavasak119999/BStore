@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DtoToEntity {
 
-    public static UserEntity userDtoToEntity(User user, RoleEntity roleEntity){
+    public static UserEntity userDtoToEntity(User user, RoleEntity roleEntity) {
         String hash = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         List<RoleEntity> userRoles = new ArrayList<>();
         userRoles.add(roleEntity);

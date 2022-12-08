@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.7.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>edu.max.bstore</groupId>
     <artifactId>BStore</artifactId>
@@ -14,11 +14,14 @@
     <packaging>jar</packaging>
     <name>BStore</name>
     <description>Book store</description>
+
     <properties>
         <java.version>17</java.version>
         <encoding>UTF-8</encoding>
         <jsonwebtoken.version>0.8.0</jsonwebtoken.version>
-        <start-class>edu.max.bstore.LibraryApplication</start-class>
+        <start-class>edu.max.bstore.Application</start-class>
+        <javax-version>2.0.1.Final</javax-version>
+        <jbcrypt-version>0.4</jbcrypt-version>
     </properties>
     <dependencies>
 
@@ -30,7 +33,7 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
+            <version>${javax-version}</version>
         </dependency>
 
         <dependency>
@@ -79,7 +82,7 @@
         <dependency>
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
-            <version>0.4</version>
+            <version>${jbcrypt-version}</version>
         </dependency>
 
     </dependencies>

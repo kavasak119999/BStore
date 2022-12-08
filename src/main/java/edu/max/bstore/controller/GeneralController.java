@@ -1,30 +1,24 @@
 package edu.max.bstore.controller;
 
 import edu.max.bstore.dto.Book;
-import edu.max.bstore.dto.Order;
 import edu.max.bstore.enumeration.Category;
 import edu.max.bstore.service.BookService;
-import edu.max.bstore.service.OrderService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Locale;
 
 @Controller
 public class GeneralController {
     private final BookService bookService;
-    private final OrderService orderService;
 
-    public GeneralController(BookService bookService, OrderService orderService) {
+    public GeneralController(BookService bookService) {
         this.bookService = bookService;
-        this.orderService = orderService;
     }
 
     @GetMapping(value = "/")
@@ -39,8 +33,8 @@ public class GeneralController {
         return new ModelAndView("pages/BStore", model);
     }
 
-    @GetMapping(value = "/book")
-    public ModelAndView showBookById(@RequestParam(name = "id") String id, ModelMap model, Principal principal) {
+    @GetMapping(value = "/books/{id}")
+    public ModelAndView showBookById(@PathVariable(name = "id") String id, ModelMap model, Principal principal) {
         Book book = bookService.getBookById(id);
 
         if (principal != null) {
@@ -72,7 +66,7 @@ public class GeneralController {
             ex.printStackTrace();
         }
 
-        Page<Book> books = bookService.getBooksByCategory(category, PageRequest.of(Integer.parseInt(page) - 1, 6));
+        Page<Book> books = bookService.getBooksByCategory(category, PageRequest.of(Integer.parseInt(page) - 1, 8));
 
         loadToModel(model, books, page);
         model.addAttribute("category", category);
@@ -80,7 +74,7 @@ public class GeneralController {
         return new ModelAndView("pages/BStore", model);
     }
 
-    private void loadToModel(ModelMap model, Page<Book> books, String page){
+    private void loadToModel(ModelMap model, Page<Book> books, String page) {
         long totalPages = books.getTotalPages();
         long totalItems = books.getTotalElements();
 

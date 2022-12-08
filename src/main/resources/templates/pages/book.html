@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <title>BStore</title>
     <link rel="icon" href="assets/BStore.ico">
-    <link rel="stylesheet" href="css/bootstrap-grid.css"/>
-    <link rel="stylesheet" href="css/jquery.modal.css"/>
-    <link rel="stylesheet" href="css/bootstrap-glyphicons.css">
-    <link href="css/styles.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/bootstrap-grid.css"/>
+    <link rel="stylesheet" href="../css/jquery.modal.css"/>
+    <link rel="stylesheet" href="../css/bootstrap-glyphicons.css">
+    <link href="../css/styles.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- Navigation-->
@@ -31,7 +31,6 @@
                         <li><a class="dropdown-item" th:href="@{/catalog(category=adventure)}">Adventure</a></li>
                     </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" th:href="@{/contact}">Contact</a></li>
             </ul>
             <div class="col-sm-3 col-md-3">
                 <form class="navbar-form" role="search" action="/search">
@@ -166,9 +165,9 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
-<script th:src="@{js/bootstrap.bundle.min.js}" src="../static/js/bootstrap.bundle.min.js"></script>
-<script th:src="@{js/jquery.js}" src="../static/js/jquery.js"></script>
-<script th:src="@{js/jquery.modal.js}" src="../static/js/jquery.modal.js"></script>
-<script th:src="@{js/main.js}" type="text/javascript" src="../static/js/main.js"></script>
+<script th:src="@{../js/bootstrap.bundle.min.js}" src="../static/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{../js/jquery.js}" src="../static/js/jquery.js"></script>
+<script th:src="@{../js/jquery.modal.js}" src="../static/js/jquery.modal.js"></script>
+<script th:src="@{../js/main.js}" type="text/javascript" src="../static/js/main.js"></script>
 </body>
 </html>

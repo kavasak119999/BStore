@@ -49,6 +49,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void switchStatusToOrder(String id) {
+        Optional<OrderEntity> order = orderRepository.findById(Long.valueOf(id));
+        OrderEntity orderEntity = order.get();
+        if (orderEntity.getStatus() == 1) {
+            orderEntity.setStatus(0);
+        } else {
+            orderEntity.setStatus(1);
+        }
+
+        orderRepository.save(orderEntity);
+    }
+
+    @Override
     public List<Order> getAllOrders() {
         List<OrderBookEntity> orderBookEntities = orderBookRepository.findAll();
         List<OrderEntity> orderEntities = orderRepository.findAll();
@@ -63,8 +76,8 @@ public class OrderServiceImpl implements OrderService {
                     .id(orderBookEntities.get(i).getOrderId())
                     .userName(orderEntities.get(i).getUserId())
                     .bookName(bookEntity.get().getName())
-                            .firstNameCustomer(user.getFirstName())
-                            .lastNameCustomer(user.getLastName())
+                    .firstNameCustomer(user.getFirstName())
+                    .lastNameCustomer(user.getLastName())
                     .phoneNumber(user.getPhoneNumber())
                     .created(orderEntities.get(i).getCreated())
                     .status(orderEntities.get(i).getStatus())

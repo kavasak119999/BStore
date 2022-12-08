@@ -13,21 +13,19 @@ spring:
       ddl-auto: "none"
       dialect: "PostgreSQLDialect"
       default_schema: "BStore"
-    show-sql: true
+    show-sql: false
 
   thymeleaf:
     prefix: classpath:/templates/
 
-#postgres:5432/BStore
   datasource:
-    url: "jdbc:postgresql://postgres:5432/BStore"
+    url: "jdbc:postgresql://localhost:5432/BStore"
     username: "admin"
     password: "admin"
     driver-class-name: org.postgresql.Driver
 
-  #postgres:5432/BStore
   flyway:
-    url: "jdbc:postgresql://postgres:5432/BStore?ssl=false"
+    url: "jdbc:postgresql://localhost:5432/BStore?ssl=false"
     user: "admin"
     password: "admin"
     locations: "classpath:/db/migration"
